@@ -13,8 +13,8 @@ class GuideController < ApplicationController
   end
 
   def xml_config
-    tc = IMS::LTI::Services::ToolConfig.new(:title => "Example Tool Provider", :launch_url => blti_launch_url(:app => params[:app])) #"#{location}/#{year}/#{id}"
-    tc.description = "This is a Sample Tool Provider."
+    tc = IMS::LTI::Services::ToolConfig.new(:title => t('app.cc.title'), :launch_url => blti_launch_url(:app => params[:app])) #"#{location}/#{year}/#{id}"
+    tc.description = t('app.cc.description', apps: ENV['LTI_APPS'] || 'default')
 
     if query_params = request.query_parameters
       platform = CanvasExtensions::PLATFORM

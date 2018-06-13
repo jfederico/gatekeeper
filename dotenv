@@ -7,7 +7,7 @@
 # DB_POOL=5
 # DB_TIMEOUT=5000
 # DB_CONNECT_TIMEOUT=10
-# DB_DATABASE=lti_tool_provider_example_production
-# RELATIVE_URL_ROOT=/lti
-# LTI_APPS_DEFAULT=rooms
-# LTI_APPS=rooms,greenlight
+# DB_DATABASE=lti_tool_provider_production
+# RELATIVE_URL_ROOT=lti
+# LTI_APPS_DEFAULT=default
+# LTI_APPS=rooms:apps,greenlight:

@@ -1,9 +1,10 @@
 class MessageController < ApplicationController
   include ApplicationHelper
+  include AppsHelper
   include RailsLti2Provider::ControllerHelpers
 
   skip_before_action :verify_authenticity_token
-  before_filter :lti_application_permitted
+  before_filter :lti_application_allowed
   before_filter :lti_authentication, except: %i[youtube signed_content_item_request]
 
   rescue_from RailsLti2Provider::LtiLaunch::Unauthorized do |ex|
@@ -13,7 +14,7 @@ class MessageController < ApplicationController
                                               when :invalid_nonce
                                                 'The nonce has already been used'
                                               when :request_to_old
-                                                'The request is to old'
+                                                'The request is too old'
                                               else
                                                 'Unknown Error'
                                               end
@@ -26,8 +27,8 @@ class MessageController < ApplicationController
     process_message
     log_hash params
     # Redirect to external application if configured
-    cookies[room_handler] = { :value => @message.to_json, :expires => 30.minutes.from_now }
-    redirect_to lti_apps_url(params[:app], handler: room_handler) unless params[:app] == 'default'
+    cookies[resource_handler] = { :value => @message.to_json, :expires => 30.minutes.from_now }
+    redirect_to lti_apps_url(params[:app], handler: resource_handler) unless params[:app] == 'default'
   end
 
   def content_item_selection
@@ -56,7 +57,7 @@ class MessageController < ApplicationController
       @header = SimpleOAuth::Header.new(:post, request.url, @message.post_params, consumer_key: @message.oauth_consumer_key, consumer_secret: 'secret', callback: 'about:blank')
     end
 
-    def room_handler
+    def resource_handler
       Digest::SHA1.hexdigest(params[:app] + params["tool_consumer_instance_guid"] + params["resource_link_id"])
     end
 end

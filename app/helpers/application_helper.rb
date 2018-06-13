@@ -15,29 +15,20 @@ module ApplicationHelper
     end
   end
 
-  def lti_application_permitted
-    raise "app parameter not included" unless params.has_key?(:app)
-    lti_apps = ENV["LTI_APPS"] || ''
-    permitted_apps = lti_apps.split(/\s*,\s*/) || []
-    raise "app not allowed" unless params[:app] == 'default' || permitted_apps.include?(params[:app])
-  end
-
   def log_div(seed, n)
     div = seed
-    for i in 1..n
+    n.times do
       div += seed
     end
-    logger.info div
+    div
   end
 
   def log_hash(h)
-    log_div("*", 100)
-    if h
-      h.sort.map do |key, value|
-        logger.info "#{key}: " + value
-      end
+    logger.info log_div('*', 100)
+    h.sort.map do |key, value|
+      logger.info "#{key}: " + value
     end
-    log_div("*", 100)
+    logger.info log_div('*', 100)
   end
 
 end
