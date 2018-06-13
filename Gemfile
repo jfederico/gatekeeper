@@ -51,7 +51,7 @@ group :development, :test do
 end
 
 gem 'ims-lti'
-gem 'rails_lti2_provider', git: 'https://github.com/jfederico/rails_lti2_provider.git', ref: '6d14293b23ce07b5270da5dbcd27d1524a8f25a3'
+gem 'rails_lti2_provider', git: 'https://github.com/jfederico/rails_lti2_provider.git', :branch => "gatekeeper"
 
 gem 'react-rails', '1.5.0'
 

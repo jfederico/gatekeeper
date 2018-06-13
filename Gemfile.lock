@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/jfederico/rails_lti2_provider.git
-  revision: 6d14293b23ce07b5270da5dbcd27d1524a8f25a3
-  ref: 6d14293b23ce07b5270da5dbcd27d1524a8f25a3
+  revision: f9d6e4df27c8107f39b76918690fd5ab973780bd
+  branch: gatekeeper
   specs:
     rails_lti2_provider (0.0.1)
-      ims-lti (~> 2.0.0.beta.34)
+      ims-lti (~> 2.0.0.beta.41)
       rails (~> 4.2.10)
 
 GEM
@@ -195,7 +195,7 @@ GEM
       coffee-rails
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.10)
+    uglifier (4.1.11)
       execjs (>= 0.3.0, < 3)
     unicorn (5.4.0)
       kgio (~> 2.6)
