@@ -1,26 +1,20 @@
-FROM ruby:2.1.6
+FROM ruby:2.5.1
 
-USER root
+# app dependencies
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
-RUN apt-get update && apt-get install -y \
-    postgresql-client \
-  && rm -rf /var/lib/apt/lists/*
+ENV RAILS_ENV=production \
+    APP_HOME=/usr/src/app
 
-ENV APP_HOME /usr/src/app
-RUN mkdir -p $APP_HOME
+
+RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-COPY ./Gemfile $APP_HOME
-COPY ./Gemfile.lock $APP_HOME
-RUN bundle install
+# Add the greenlight app
+ADD . $APP_HOME
 
-COPY ./entrypoint.sh $APP_HOME
-COPY . $APP_HOME
+# Install app dependencies
+RUN bundle install --without development test doc --deployment --clean
+RUN bundle exec rake assets:precompile --trace
 
-RUN useradd -r -U docker
-RUN chmod +x $APP_HOME/entrypoint.sh && \
-    chown -R docker:docker $APP_HOME /usr/local/bundle
-
-USER docker
-
-CMD ["/usr/src/app/entrypoint.sh"]
+CMD ["scripts/default_start.sh"]
