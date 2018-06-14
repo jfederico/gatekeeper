@@ -1,13 +1,14 @@
+# General configuration
+# SECRET_KEY_BASE=
+
 # Database configuration
-# DB_ADAPTER=<postgresql|sqlite3>
 # DB_HOST=
 # DB_USERNAME=
 # DB_PASSWORD=
-# DB_ENCODING=5
-# DB_POOL=5
-# DB_TIMEOUT=5000
-# DB_CONNECT_TIMEOUT=10
-# DB_DATABASE=lti_tool_provider_production
+
+# LTI Broker configuration
 # RELATIVE_URL_ROOT=lti
+
+# LTI Apps configuration
 # LTI_APPS_DEFAULT=default
 # LTI_APPS=rooms:apps,greenlight:

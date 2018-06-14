@@ -1,21 +1,21 @@
 default: &default
-  adapter: <%= ENV['DB_ADAPTER'] || 'sqlite3' %>
-  host: <%= ENV['DB_HOST'] %>
-  username: <%= ENV['DB_USERNAME'] %>
+  adapter: postgresql
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  username: <%= ENV['DB_USERNAME'] || 'postgres' %>
   password: <%= ENV['DB_PASSWORD'] %>
-  encoding: <%= ENV['DB_ENCODING'] || 'utf8' %>
-  pool: <%= ENV['DB_POOL'] || '5' %>
-  timeout: <%= ENV['DB_TIMEOUT'] || '5000' %>
-  connect_timeout: <%= ENV['DB_CONNECT_TIMEOUT'] || '10' %>
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  connect_timeout: 10
 
 development:
   <<: *default
-  database: <%= ENV['DB_DATABASE'] || 'db/development.sqlite3' %>
+  database: lti_tool_provider_development
 
 test:
   <<: *default
-  database: <%= ENV['DB_DATABASE'] || 'db/test.sqlite3' %>
+  database: lti_tool_provider_test
 
 production:
   <<: *default
-  database: <%= ENV['DB_DATABASE'] || 'db/production.sqlite3' %>
+  database: lti_tool_provider_production

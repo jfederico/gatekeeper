@@ -5,11 +5,8 @@ ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
 # Use postgres as the database for Active Record
-gem 'pg'
+gem "pg", "~> 0.21"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -51,7 +48,7 @@ group :development, :test do
 end
 
 gem 'ims-lti'
-gem 'rails_lti2_provider', git: 'https://github.com/jfederico/rails_lti2_provider.git', :branch => "gatekeeper"
+gem 'rails_lti2_provider', git: 'https://github.com/blindsidenetworks/rails_lti2_provider.git', :branch => "gatekeeper"
 
 gem 'react-rails', '1.5.0'
 

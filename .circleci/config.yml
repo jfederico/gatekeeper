@@ -4,7 +4,6 @@ jobs:
   checkout_code:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
-#      - image: circleci/postgres:9.5-alpine
     working_directory: ~/repo
     steps:
       - checkout
@@ -52,7 +51,7 @@ jobs:
       - run:
           name: Run tests
           environment:
-                    DATABASE_URL: "postgres://postgres@localhost:5432/lti_tool_provider_test"
+              DATABASE_URL: "postgres://postgres@localhost:5432/lti_tool_provider_test"
           command: bundle exec rake
 
   precompile_assets:
