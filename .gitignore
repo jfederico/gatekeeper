@@ -45,3 +45,5 @@ bower.json
 docker-compose.override.yml
 
 public*
+
+.ruby-version

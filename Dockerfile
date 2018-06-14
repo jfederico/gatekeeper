@@ -12,9 +12,10 @@ WORKDIR $APP_HOME
 
 # Add the greenlight app
 ADD . $APP_HOME
+EXPOSE 3000
 
 # Install app dependencies
 RUN bundle install --without development test doc --deployment --clean
 RUN bundle exec rake assets:precompile --trace
 
-CMD ["scripts/default_start.sh"]
+CMD /usr/src/app/scripts/start.sh
