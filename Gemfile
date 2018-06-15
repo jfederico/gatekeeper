@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.1.6'
+ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.10'
+
+# Use postgres as the database for Active Record
+gem "pg", "~> 0.21"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -40,15 +43,12 @@ gem 'unicorn'
 group :development, :test do
   gem 'pry', require: 'pry'
   gem 'byebug'
-  gem 'rspec-rails', '~> 3.4.2'
+  gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 
-gem 'pg'
-
-gem 'rails_12factor'
-
-gem 'ims-lti', '2.0.0.beta.41'
-gem 'rails_lti2_provider', git: 'https://github.com/rivernate/rails_lti2_provider.git', ref: '42ea6bad1c94a4675329ffc710d8dfa9a02a8321'
+gem 'ims-lti'
+gem 'rails_lti2_provider', git: 'https://github.com/blindsidenetworks/rails_lti2_provider.git', :branch => "gatekeeper"
 
 gem 'react-rails', '1.5.0'
 

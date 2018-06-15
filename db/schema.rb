@@ -13,17 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20160420155226) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "collaboration_callbacks", force: true do |t|
+  create_table "collaboration_callbacks", force: :cascade do |t|
     t.string   "request_method"
     t.string   "host"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "rails_lti2_provider_lti_launches", force: true do |t|
+  create_table "rails_lti2_provider_lti_launches", force: :cascade do |t|
     t.integer  "tool_id",    limit: 8
     t.string   "nonce"
     t.text     "message"
@@ -31,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160420155226) do
     t.datetime "updated_at"
   end
 
-  create_table "rails_lti2_provider_registrations", force: true do |t|
+  create_table "rails_lti2_provider_registrations", force: :cascade do |t|
     t.string   "uuid"
     t.text     "registration_request_params"
     t.text     "tool_proxy_json"
@@ -42,9 +39,9 @@ ActiveRecord::Schema.define(version: 20160420155226) do
     t.text     "correlation_id"
   end
 
-  add_index "rails_lti2_provider_registrations", ["correlation_id"], name: "index_rails_lti2_provider_registrations_on_correlation_id", unique: true, using: :btree
+  add_index "rails_lti2_provider_registrations", ["correlation_id"], name: "index_rails_lti2_provider_registrations_on_correlation_id", unique: true
 
-  create_table "rails_lti2_provider_tools", force: true do |t|
+  create_table "rails_lti2_provider_tools", force: :cascade do |t|
     t.string   "uuid"
     t.text     "shared_secret"
     t.text     "tool_settings"

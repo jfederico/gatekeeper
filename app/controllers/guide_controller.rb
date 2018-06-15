@@ -1,5 +1,10 @@
 require 'ims/lti'
+
 class GuideController < ApplicationController
+  include ApplicationHelper
+
+  before_filter :lti_application_permitted
+
   def home
   end
 
@@ -8,8 +13,8 @@ class GuideController < ApplicationController
   end
 
   def xml_config
-    tc = IMS::LTI::Services::ToolConfig.new(:title => "Example Tool Provider", :launch_url => blti_launch_url)
-    tc.description = "This is a Sample Tool Provider."
+    tc = IMS::LTI::Services::ToolConfig.new(:title => t('app.cc.title'), :launch_url => blti_launch_url(:app => params[:app])) #"#{location}/#{year}/#{id}"
+    tc.description = t('app.cc.description', apps: ENV['LTI_APPS'] || 'default')
 
     if query_params = request.query_parameters
       platform = CanvasExtensions::PLATFORM
@@ -17,7 +22,7 @@ class GuideController < ApplicationController
       tc.set_ext_param(platform, :selection_height, query_params[:selection_height])
       tc.set_ext_param(platform, :privacy_level, 'public')
       tc.set_ext_param(platform, :text, 'Extension text')
-      tc.set_ext_param(platform, :icon_url, view_context.asset_url('selector.png'))
+      tc.set_ext_param(platform, :icon_url, view_context.image_url("selector.png")) #root_url +  #view_context.asset_url('selector.png'))
       tc.set_ext_param(platform, :domain, request.host_with_port)
 
       query_params[:custom_params].each { |_, v| tc.set_custom_param(v[:name].to_sym, v[:value]) } if query_params[:custom_params]
@@ -32,7 +37,7 @@ class GuideController < ApplicationController
     message_type = request.query_parameters["#{placement_key}_message_type"] || :basic_lti_request
     navigation_params = case message_type
                         when 'content_item_selection'
-                          {url: content_item_launch_url, message_type: 'ContentItemSelection'}
+                          {url: content_item_request_launch_url, message_type: 'ContentItemSelection'}
                         when 'content_item_selection_request'
                           {url: content_item_request_launch_url, message_type: 'ContentItemSelectionRequest'}
                         else

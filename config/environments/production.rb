@@ -20,7 +20,7 @@ LtiToolProvider::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -79,4 +79,7 @@ LtiToolProvider::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.react.variant = :production
+
+  config.relative_url_root = ENV['RELATIVE_URL_ROOT'] || '/'
+  config.assets.prefix = ENV['RELATIVE_URL_ROOT'] || '' + '/assets'
 end
